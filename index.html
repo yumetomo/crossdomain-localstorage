@@ -20,16 +20,19 @@
     var handlerOrigin = 'https://yumetomo.github.io';
 
     window.addEventListener('message', function(event) {
+      // 送信元が指定のオリジンと一致していれば処理を行う
       if(event.origin === handlerOrigin) {
         alert(event.data);
       }
     });
 
     $setButton.addEventListener('click', function() {
+      // テキストエリアに入力されている値を送信
       iframeWindow.postMessage(`test,${$text.value}`, handlerOrigin);
     });
 
     $getButton.addEventListener('click', function() {
+      // localstorageの値の取得を要求するメッセージ送信
       iframeWindow.postMessage('get', handlerOrigin);
     });
 
