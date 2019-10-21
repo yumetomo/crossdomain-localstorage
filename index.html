@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <iframe id="iframe" src="" style="display: none;"></iframe>
+  <iframe id="iframe" src="https://yumetomo.github.io/crossdomain-localstorage/handler.html" style="display: none;"></iframe>
   <input type="text" name="text" id="text">
   <button id="set">ストレージに値を入れる</button>
   <button id="get">ストレージの値を取得する</button>
@@ -17,17 +17,20 @@
     var $text = document.querySelector('#text');
     var $setButton = document.querySelector('#set');
     var $getButton = document.querySelector('#get');
+    var handlerOrigin = 'https://yumetomo.github.io';
 
     window.addEventListener('message', function(event) {
-      alert(event.data);
+      if(event.origin === handlerOrigin) {
+        alert(event.data);
+      }
     });
 
     $setButton.addEventListener('click', function() {
-      iframeWindow.postMessage(`test,${$text.value}`, '');
+      iframeWindow.postMessage(`test,${$text.value}`, handlerOrigin);
     });
 
     $getButton.addEventListener('click', function() {
-      iframeWindow.postMessage('get', '');
+      iframeWindow.postMessage('get', handlerOrigin);
     });
 
   })();
