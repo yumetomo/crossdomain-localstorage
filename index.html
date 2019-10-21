@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <iframe id="iframe" src="" style="display: none;"></iframe>
+  <input type="text" name="text" id="text">
+  <button id="set">ストレージに値を入れる</button>
+  <button id="get">ストレージの値を取得する</button>
+  <script>
+  (function() {
+    var iframeWindow = document.querySelector('#iframe').contentWindow;
+    var $text = document.querySelector('#text');
+    var $setButton = document.querySelector('#set');
+    var $getButton = document.querySelector('#get');
+
+    window.addEventListener('message', function(event) {
+      alert(event.data);
+    });
+
+    $setButton.addEventListener('click', function() {
+      iframeWindow.postMessage(`test,${$text.value}`, '');
+    });
+
+    $getButton.addEventListener('click', function() {
+      iframeWindow.postMessage('get', '');
+    });
+
+  })();
+  </script>
+</body>
+</html>
